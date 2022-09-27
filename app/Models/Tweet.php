@@ -32,6 +32,13 @@ class Tweet extends Model
   {
     return $this->belongsToMany(User::class)->withTimestamps();
   }
+
+  public function brokeusers()
+  {
+    return $this->belongsToMany(User::class);
+  }
+
+  
 }
 
 

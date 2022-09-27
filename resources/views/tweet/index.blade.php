@@ -86,6 +86,26 @@
                     @endif
 
                     @if ($tweet->user_id === Auth::user()->id)
+                    <!-- broke 状態で条件分岐 -->
+                    @if($tweet->users()->where('user_id', Auth::id())->exists())
+                    <!-- unbroke ボタン -->
+                    <form action="{{ route('unbroke',$tweet) }}" method="POST" class="text-left">
+                      @csrf
+                      <button type="submit" class="flex mr-2 ml-2 text-sm hover:bg-gray-200 hover:shadow-none text-red py-1 px-2 focus:outline-none focus:shadow-outline">
+                        <svg class="h-8 w-8 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M9 12l2 2l4 -4" />  <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" /></svg>
+                        {{ $tweet->users()->count() }}
+                      </button>
+                    </form>
+                    @else
+                    <!-- broke ボタン -->
+                    <form action="{{ route('broke',$tweet) }}" method="POST" class="text-left">
+                      @csrf
+                      <button type="submit" class="flex mr-2 ml-2 text-sm hover:bg-gray-200 hover:shadow-none text-black py-1 px-2 focus:outline-none focus:shadow-outline">
+                        <svg class="h-8 w-8 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M9 12l2 2l4 -4" />  <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" /></svg>
+                        {{ $tweet->users()->count() }}
+                      </button>
+                    </form>
+                    @endif
                     <!-- 更新ボタン -->
                     <form action="{{ route('tweet.edit',$tweet->id) }}" method="GET" class="text-left">
                       @csrf
