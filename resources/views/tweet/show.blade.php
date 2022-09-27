@@ -1,9 +1,9 @@
-<!-- resources/views/tweet/show.blade.php -->
+<!-- resources/views/user/show.blade.php -->
 
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('Show Tweet Detail') }}
+      {{ __('Show User Detail') }}
     </h2>
   </x-slot>
 
@@ -13,17 +13,36 @@
         <div class="p-6 bg-white border-b border-gray-200">
           <div class="mb-6">
             <div class="flex flex-col mb-4">
-              <p class="mb-2 uppercase font-bold text-lg text-grey-darkest">Tweet</p>
-              <p class="py-2 px-3 text-grey-darkest" id="tweet">
-                {{$tweet->tweet}}
+              <p class="mb-2 uppercase font-bold text-lg text-grey-darkest">Name</p>
+              <p class="py-2 px-3 text-grey-darkest" id="name">
+                {{$user->name}}
               </p>
             </div>
             <div class="flex flex-col mb-4">
-              <p class="mb-2 uppercase font-bold text-lg text-grey-darkest">Description</p>
-              <p class="py-2 px-3 text-grey-darkest" id="description">
-                {{$tweet->description}}
+              <p class="mb-2 uppercase font-bold text-lg text-grey-darkest">Joined_at</p>
+              <p class="py-2 px-3 text-grey-darkest" id="created_at">
+                {{$user->created_at}}
               </p>
             </div>
+
+            <div class="flex flex-col mb-4">
+              <p class="mb-2 uppercase font-bold text-lg text-grey-darkest">{{$followers->count()}} Followers</p>
+              @foreach($followers as $follower)
+              <p class="py-2 px-3 text-grey-darkest" id="followers{{$loop->index}}">
+                {{$follower->name}}
+              </p>
+              @endforeach
+            </div>
+
+            <div class="flex flex-col mb-4">
+              <p class="mb-2 uppercase font-bold text-lg text-grey-darkest">{{$followings->count()}} Following</p>
+              @foreach($followings as $following)
+              <p class="py-2 px-3 text-grey-darkest" id="followings{{$loop->index}}">
+                {{$following->name}}
+              </p>
+              @endforeach
+            </div>
+
             <a href="{{ url()->previous() }}" class="block text-center w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
               Back
             </a>
